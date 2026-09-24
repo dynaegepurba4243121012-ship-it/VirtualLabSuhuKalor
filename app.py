@@ -1,5 +1,5 @@
 import streamlit as st
-import math
+import pandas as pd
 
 # =========================================================
 # KONFIGURASI
@@ -21,7 +21,7 @@ st.markdown("""
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
 
-html, body, [class*="css"] {
+* {
     font-family: 'Poppins', sans-serif;
 }
 
@@ -31,7 +31,7 @@ html, body, [class*="css"] {
 
 /* SIDEBAR */
 section[data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #071a35 0%, #0b2850 100%);
+    background: linear-gradient(180deg, #071a35, #0c315d);
 }
 
 section[data-testid="stSidebar"] * {
@@ -39,150 +39,114 @@ section[data-testid="stSidebar"] * {
 }
 
 .sidebar-title {
-    font-size: 22px;
-    font-weight: 800;
     text-align: center;
-    padding: 15px 5px 5px 5px;
+    font-size: 23px;
+    font-weight: 800;
+    margin-top: 15px;
 }
 
 .sidebar-subtitle {
-    font-size: 12px;
     text-align: center;
+    font-size: 12px;
     opacity: 0.75;
     margin-bottom: 25px;
 }
 
-.sidebar-info {
-    background: rgba(255,255,255,0.08);
-    padding: 12px;
-    border-radius: 12px;
-    margin-top: 25px;
-    font-size: 12px;
-    text-align: center;
-}
-
-/* HEADER */
-.topbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px 0 20px 0;
-}
-
-.badge {
-    background: #e8f1ff;
-    color: #1555a5;
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-size: 13px;
-    font-weight: 600;
-}
-
 /* HERO */
 .hero {
-    background: linear-gradient(135deg, #0b3d78 0%, #1261a8 100%);
-    border-radius: 24px;
-    padding: 42px 45px;
+    background: linear-gradient(135deg, #083b73, #1371bd);
     color: white;
-    margin-bottom: 28px;
-    box-shadow: 0 12px 30px rgba(15, 70, 130, 0.20);
+    border-radius: 24px;
+    padding: 38px;
+    margin-bottom: 25px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.10);
 }
 
 .hero h1 {
-    font-size: 38px;
+    font-size: 36px;
     font-weight: 800;
-    margin-bottom: 10px;
 }
 
 .hero p {
-    font-size: 16px;
-    opacity: 0.92;
-}
-
-.hero-small {
-    display: inline-block;
-    background: rgba(255,255,255,0.16);
-    padding: 7px 14px;
-    border-radius: 20px;
-    font-size: 12px;
-    margin-bottom: 14px;
+    font-size: 15px;
 }
 
 /* CARD */
 .card {
     background: white;
-    padding: 25px;
     border-radius: 18px;
-    border: 1px solid #e5e9f0;
+    padding: 25px;
+    border: 1px solid #e1e7ef;
     box-shadow: 0 5px 18px rgba(0,0,0,0.05);
-    min-height: 220px;
-}
-
-.card-icon {
-    font-size: 38px;
-    margin-bottom: 12px;
-}
-
-.card h3 {
-    color: #12365f;
-    margin-bottom: 8px;
-}
-
-.card p {
-    color: #68778d;
-    font-size: 13px;
-    line-height: 1.6;
-}
-
-/* SECTION */
-.section-title {
-    color: #12365f;
-    font-size: 26px;
-    font-weight: 700;
-    margin-top: 25px;
     margin-bottom: 18px;
 }
 
-/* SIMULATOR */
-.sim-box {
-    background: white;
-    padding: 30px;
-    border-radius: 20px;
-    border: 1px solid #e1e7ef;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+.card h3 {
+    color: #123b68;
 }
 
-.result-box {
-    background: #edf6ff;
-    border-left: 5px solid #1674d1;
+/* JUDUL */
+.section-title {
+    color: #123b68;
+    font-size: 25px;
+    font-weight: 700;
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+
+/* LKPD */
+.lkpd {
+    background: white;
+    border-radius: 18px;
+    padding: 28px;
+    border: 1px solid #dfe6ef;
+    margin-bottom: 22px;
+}
+
+.lkpd-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #123b68;
+    margin-bottom: 15px;
+}
+
+.objective {
+    background: #eef7ff;
+    border-left: 5px solid #1874c9;
+    padding: 18px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.question {
+    background: #fafbfc;
+    border: 1px solid #e2e7ee;
+    padding: 18px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+}
+
+/* HASIL */
+.result {
+    background: #edf7ff;
+    border-left: 5px solid #1371bd;
     padding: 20px;
     border-radius: 12px;
-    margin-top: 20px;
 }
 
-.big-result {
+.big-number {
     font-size: 35px;
     font-weight: 800;
-    color: #075da8;
-}
-
-.formula {
-    background: #f4f6f9;
-    padding: 15px;
-    border-radius: 10px;
-    font-family: monospace;
-    font-size: 16px;
-    margin: 15px 0;
+    color: #0964aa;
 }
 
 /* FOOTER */
 .footer {
     margin-top: 50px;
-    padding: 20px;
+    padding: 25px;
     text-align: center;
-    color: #8290a3;
-    font-size: 12px;
-    border-top: 1px solid #e1e6ed;
+    color: #7d8a9c;
+    border-top: 1px solid #dfe4eb;
 }
 
 </style>
@@ -193,8 +157,8 @@ section[data-testid="stSidebar"] * {
 # SESSION STATE
 # =========================================================
 
-if "page" not in st.session_state:
-    st.session_state.page = "Beranda"
+if "halaman" not in st.session_state:
+    st.session_state.halaman = "Beranda"
 
 
 # =========================================================
@@ -203,72 +167,93 @@ if "page" not in st.session_state:
 
 with st.sidebar:
 
-    st.markdown("""
-    <div class="sidebar-title">🌡️ Virtual Lab</div>
-    <div class="sidebar-subtitle">Suhu dan Kalor</div>
-    """, unsafe_allow_html=True)
+    st.markdown(
+        '<div class="sidebar-title">🌡️ VIRTUAL LAB</div>',
+        unsafe_allow_html=True
+    )
+
+    st.markdown(
+        '<div class="sidebar-subtitle">SUHU DAN KALOR</div>',
+        unsafe_allow_html=True
+    )
 
     st.markdown("### MENU")
 
-    if st.button("🏠  Beranda", use_container_width=True):
-        st.session_state.page = "Beranda"
+    if st.button("🏠 Beranda", use_container_width=True):
+        st.session_state.halaman = "Beranda"
 
-    if st.button("🌡️  Pengukuran Suhu", use_container_width=True):
-        st.session_state.page = "Pengukuran Suhu"
+    if st.button("📖 LKPD Suhu", use_container_width=True):
+        st.session_state.halaman = "Suhu"
 
-    if st.button("🔥  Kalor", use_container_width=True):
-        st.session_state.page = "Kalor"
+    if st.button("🔥 LKPD Kalor", use_container_width=True):
+        st.session_state.halaman = "Kalor"
 
-    if st.button("⚖️  Asas Black", use_container_width=True):
-        st.session_state.page = "Asas Black"
+    if st.button("⚖️ LKPD Asas Black", use_container_width=True):
+        st.session_state.halaman = "Black"
 
-    if st.button("💧  Perubahan Wujud", use_container_width=True):
-        st.session_state.page = "Perubahan Wujud"
+    if st.button("💧 LKPD Perubahan Wujud", use_container_width=True):
+        st.session_state.halaman = "Wujud"
+
+    st.markdown("---")
 
     st.markdown("""
-    <div class="sidebar-info">
-    <b>KELOMPOK 8</b><br><br>
-    Media Pembelajaran Praktikum Fisika Berbasis Web
+    <div style="
+        background:rgba(255,255,255,0.08);
+        padding:15px;
+        border-radius:12px;
+        text-align:center;
+        font-size:12px;">
+        <b>KELOMPOK 8</b><br><br>
+        Praktikum Fisika SMA
     </div>
     """, unsafe_allow_html=True)
-
-
-# =========================================================
-# HEADER
-# =========================================================
-
-st.markdown("""
-<div class="topbar">
-    <div>
-        <b style="font-size:20px;color:#12365f;">
-        Virtual Lab Suhu dan Kalor
-        </b>
-    </div>
-    <div class="badge">☀️ Kelompok 8</div>
-</div>
-""", unsafe_allow_html=True)
 
 
 # =========================================================
 # BERANDA
 # =========================================================
 
-if st.session_state.page == "Beranda":
+if st.session_state.halaman == "Beranda":
 
     st.markdown("""
     <div class="hero">
-        <div class="hero-small">🔬 PRAKTIKUM FISIKA BERBASIS WEB</div>
-        <h1>Selamat Datang di<br>VIRTUAL LAB SUHU DAN KALOR</h1>
+        <h1>🌡️ VIRTUAL LAB SUHU DAN KALOR</h1>
         <p>
         Media pembelajaran praktikum fisika berbasis web
-        untuk mempelajari konsep suhu, kalor, Asas Black,
-        dan perubahan wujud zat secara interaktif.
+        dalam bentuk LKPD digital interaktif.
+        </p>
+        <p>
+        <b>Materi:</b> Suhu, Kalor, Asas Black, dan Perubahan Wujud
         </p>
     </div>
     """, unsafe_allow_html=True)
 
     st.markdown(
-        '<div class="section-title">📚 Materi Pembelajaran</div>',
+        '<div class="section-title">🎯 Tujuan Pembelajaran</div>',
+        unsafe_allow_html=True
+    )
+
+    st.markdown("""
+    <div class="card">
+
+    Setelah melakukan kegiatan pada Virtual Lab ini, peserta didik
+    diharapkan mampu:
+
+    <ol>
+    <li>Menjelaskan konsep suhu dan pengukurannya.</li>
+    <li>Mengonversi nilai suhu ke berbagai skala.</li>
+    <li>Menjelaskan hubungan kalor, massa, kalor jenis, dan perubahan suhu.</li>
+    <li>Menganalisis perpindahan kalor menggunakan Asas Black.</li>
+    <li>Mengidentifikasi berbagai perubahan wujud zat.</li>
+    <li>Menganalisis hasil simulasi melalui tabel dan pertanyaan.</li>
+    <li>Menyusun kesimpulan berdasarkan hasil percobaan.</li>
+    </ol>
+
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown(
+        '<div class="section-title">🧪 Pilih Kegiatan LKPD</div>',
         unsafe_allow_html=True
     )
 
@@ -277,298 +262,408 @@ if st.session_state.page == "Beranda":
     with c1:
         st.markdown("""
         <div class="card">
-            <div class="card-icon">🌡️</div>
-            <h3>Suhu</h3>
-            <p>
-            Mempelajari pengukuran suhu dan hubungan
-            antara skala Celsius, Fahrenheit, Kelvin,
-            dan Reamur.
-            </p>
+        <h3>🌡️ Suhu</h3>
+        <p>
+        Mengamati dan mengonversi suhu pada
+        berbagai skala termometer.
+        </p>
         </div>
         """, unsafe_allow_html=True)
+
+        if st.button("Mulai LKPD", key="btn1",
+                     use_container_width=True):
+            st.session_state.halaman = "Suhu"
 
     with c2:
         st.markdown("""
         <div class="card">
-            <div class="card-icon">🔥</div>
-            <h3>Kalor</h3>
-            <p>
-            Mempelajari kalor yang diperlukan untuk
-            menaikkan atau menurunkan suhu suatu zat.
-            </p>
+        <h3>🔥 Kalor</h3>
+        <p>
+        Menyelidiki pengaruh massa, kalor jenis,
+        dan perubahan suhu terhadap kalor.
+        </p>
         </div>
         """, unsafe_allow_html=True)
+
+        if st.button("Mulai LKPD", key="btn2",
+                     use_container_width=True):
+            st.session_state.halaman = "Kalor"
 
     with c3:
         st.markdown("""
         <div class="card">
-            <div class="card-icon">⚖️</div>
-            <h3>Asas Black</h3>
-            <p>
-            Menganalisis pertukaran kalor antara benda
-            panas dan benda dingin sampai tercapai
-            suhu kesetimbangan.
-            </p>
+        <h3>⚖️ Asas Black</h3>
+        <p>
+        Menyelidiki perpindahan kalor antara
+        benda panas dan benda dingin.
+        </p>
         </div>
         """, unsafe_allow_html=True)
+
+        if st.button("Mulai LKPD", key="btn3",
+                     use_container_width=True):
+            st.session_state.halaman = "Black"
 
     with c4:
         st.markdown("""
         <div class="card">
-            <div class="card-icon">💧</div>
-            <h3>Perubahan Wujud</h3>
-            <p>
-            Mempelajari proses mencair, membeku,
-            menguap, mengembun, dan perubahan wujud
-            lainnya.
-            </p>
+        <h3>💧 Perubahan Wujud</h3>
+        <p>
+        Mengidentifikasi perubahan wujud zat
+        akibat pemberian atau pelepasan kalor.
+        </p>
         </div>
         """, unsafe_allow_html=True)
 
-    st.markdown(
-        '<div class="section-title">🧪 Pilih Simulasi</div>',
-        unsafe_allow_html=True
-    )
-
-    s1, s2 = st.columns(2)
-
-    with s1:
-        st.markdown("""
-        <div class="card">
-            <div class="card-icon">🌡️</div>
-            <h3>Pengukuran Suhu</h3>
-            <p>
-            Ubah nilai suhu dari satu skala ke skala
-            lainnya dan amati hasil pengukurannya.
-            </p>
-        </div>
-        """, unsafe_allow_html=True)
-
-        if st.button("Mulai Simulasi →", key="home_suhu",
+        if st.button("Mulai LKPD", key="btn4",
                      use_container_width=True):
-            st.session_state.page = "Pengukuran Suhu"
-
-    with s2:
-        st.markdown("""
-        <div class="card">
-            <div class="card-icon">🔥</div>
-            <h3>Perhitungan Kalor</h3>
-            <p>
-            Simulasikan kalor yang diterima atau dilepas
-            oleh suatu benda berdasarkan massa, kalor
-            jenis, dan perubahan suhu.
-            </p>
-        </div>
-        """, unsafe_allow_html=True)
-
-        if st.button("Mulai Simulasi →", key="home_kalor",
-                     use_container_width=True):
-            st.session_state.page = "Kalor"
+            st.session_state.halaman = "Wujud"
 
 
 # =========================================================
-# PENGUKURAN SUHU
+# LKPD SUHU
 # =========================================================
 
-elif st.session_state.page == "Pengukuran Suhu":
+elif st.session_state.halaman == "Suhu":
 
     st.markdown("""
     <div class="hero">
-        <div class="hero-small">🌡️ SIMULASI 01</div>
-        <h1>Pengukuran Suhu</h1>
+        <h1>🌡️ LKPD DIGITAL — PENGUKURAN SUHU</h1>
         <p>
-        Simulasikan konversi suhu dari Celsius ke
-        Fahrenheit, Kelvin, dan Reamur.
+        Simulasi pengukuran dan konversi skala suhu.
         </p>
     </div>
     """, unsafe_allow_html=True)
 
-    left, right = st.columns([1, 1])
-
-    with left:
-
-        st.markdown(
-            '<div class="section-title">🎛️ Pengaturan Suhu</div>',
-            unsafe_allow_html=True
-        )
-
-        with st.container(border=True):
-
-            suhu_c = st.slider(
-                "Atur suhu dalam Celsius (°C)",
-                -50.0,
-                150.0,
-                25.0,
-                1.0
-            )
-
-            st.write("Suhu yang dipilih:")
-
-            st.markdown(
-                f'<div class="big-result">{suhu_c:.0f} °C</div>',
-                unsafe_allow_html=True
-            )
-
-    with right:
-
-        fahrenheit = (suhu_c * 9 / 5) + 32
-        kelvin = suhu_c + 273.15
-        reamur = suhu_c * 4 / 5
-
-        st.markdown(
-            '<div class="section-title">📊 Hasil Pengukuran</div>',
-            unsafe_allow_html=True
-        )
-
-        r1, r2 = st.columns(2)
-
-        with r1:
-            st.metric("Celsius", f"{suhu_c:.1f} °C")
-            st.metric("Fahrenheit", f"{fahrenheit:.1f} °F")
-
-        with r2:
-            st.metric("Kelvin", f"{kelvin:.1f} K")
-            st.metric("Reamur", f"{reamur:.1f} °R")
-
-    st.markdown("---")
-
-    st.markdown("### 📖 Persamaan Konversi")
-
+    # TUJUAN
     st.markdown("""
-    <div class="formula">
-    Fahrenheit = (9/5 × Celsius) + 32
-    </div>
+    <div class="lkpd">
+    <div class="lkpd-title">🎯 Tujuan Pembelajaran</div>
 
-    <div class="formula">
-    Kelvin = Celsius + 273,15
+    <div class="objective">
+    Peserta didik mampu menjelaskan pengertian suhu,
+    melakukan konversi skala suhu, serta menganalisis
+    hasil pengukuran melalui simulasi.
     </div>
-
-    <div class="formula">
-    Reamur = 4/5 × Celsius
     </div>
     """, unsafe_allow_html=True)
 
+    # PETUNJUK
+    st.markdown("""
+    <div class="lkpd">
+    <div class="lkpd-title">📋 Petunjuk Percobaan</div>
+
+    <ol>
+    <li>Geser nilai suhu pada simulasi.</li>
+    <li>Amati perubahan nilai pada setiap skala.</li>
+    <li>Catat hasil pengamatan.</li>
+    <li>Jawab pertanyaan pada bagian analisis.</li>
+    <li>Buat kesimpulan berdasarkan hasil percobaan.</li>
+    </ol>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # SIMULASI
+    st.markdown(
+        '<div class="section-title">🧪 Simulasi Pengukuran</div>',
+        unsafe_allow_html=True
+    )
+
+    suhu = st.slider(
+        "Atur suhu Celsius",
+        -50,
+        150,
+        25
+    )
+
+    fahrenheit = (9 / 5 * suhu) + 32
+    kelvin = suhu + 273.15
+    reamur = 4 / 5 * suhu
+
+    col1, col2, col3, col4 = st.columns(4)
+
+    col1.metric("Celsius", f"{suhu} °C")
+    col2.metric("Fahrenheit", f"{fahrenheit:.2f} °F")
+    col3.metric("Kelvin", f"{kelvin:.2f} K")
+    col4.metric("Reamur", f"{reamur:.2f} °R")
+
+    # TABEL
+    st.markdown("### 📊 Tabel Hasil Pengamatan")
+
+    data = pd.DataFrame({
+        "Skala": [
+            "Celsius",
+            "Fahrenheit",
+            "Kelvin",
+            "Reamur"
+        ],
+        "Hasil": [
+            f"{suhu:.2f}",
+            f"{fahrenheit:.2f}",
+            f"{kelvin:.2f}",
+            f"{reamur:.2f}"
+        ]
+    })
+
+    st.dataframe(
+        data,
+        use_container_width=True,
+        hide_index=True
+    )
+
+    # PERTANYAAN
+    st.markdown("""
+    <div class="lkpd">
+    <div class="lkpd-title">❓ Pertanyaan Analisis</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    q1 = st.text_area(
+        "1. Apa yang dimaksud dengan suhu?"
+    )
+
+    q2 = st.text_area(
+        "2. Bagaimana hubungan antara skala Celsius dan Fahrenheit?"
+    )
+
+    q3 = st.text_area(
+        "3. Jika suhu dinaikkan, bagaimana perubahan nilai Kelvin?"
+    )
+
+    q4 = st.text_area(
+        "4. Apa yang dapat kamu simpulkan dari hasil simulasi?"
+    )
+
+    st.markdown("### 📝 Kesimpulan")
+
+    kesimpulan = st.text_area(
+        "Tuliskan kesimpulan percobaan:",
+        height=150
+    )
+
+    if st.button("💾 Simpan Jawaban LKPD", key="simpan_suhu"):
+        st.success("Jawaban LKPD telah dicatat pada halaman ini.")
+
 
 # =========================================================
-# KALOR
+# LKPD KALOR
 # =========================================================
 
-elif st.session_state.page == "Kalor":
+elif st.session_state.halaman == "Kalor":
 
     st.markdown("""
     <div class="hero">
-        <div class="hero-small">🔥 SIMULASI 02</div>
-        <h1>Simulasi Kalor</h1>
+        <h1>🔥 LKPD DIGITAL — KALOR</h1>
         <p>
-        Hitung kalor yang diperlukan untuk mengubah
-        suhu suatu benda.
+        Menyelidiki hubungan massa, kalor jenis,
+        perubahan suhu, dan kalor.
         </p>
     </div>
     """, unsafe_allow_html=True)
 
+    st.markdown("""
+    <div class="lkpd">
+
+    <div class="lkpd-title">🎯 Tujuan Pembelajaran</div>
+
+    <div class="objective">
+    Peserta didik mampu menganalisis hubungan massa,
+    kalor jenis, perubahan suhu, dan kalor yang diterima
+    atau dilepaskan oleh suatu benda.
+    </div>
+
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="lkpd">
+
+    <div class="lkpd-title">📋 Langkah Percobaan</div>
+
+    <ol>
+    <li>Tentukan massa benda.</li>
+    <li>Tentukan kalor jenis benda.</li>
+    <li>Tentukan suhu awal.</li>
+    <li>Atur suhu akhir.</li>
+    <li>Amati nilai kalor yang diperoleh.</li>
+    <li>Ubah salah satu variabel dan bandingkan hasilnya.</li>
+    </ol>
+
+    </div>
+    """, unsafe_allow_html=True)
+
     st.markdown(
-        '<div class="section-title">🎛️ Parameter Percobaan</div>',
+        '<div class="section-title">🧪 Simulasi Kalor</div>',
         unsafe_allow_html=True
     )
 
-    a, b, c = st.columns(3)
+    c1, c2, c3 = st.columns(3)
 
-    with a:
+    with c1:
         massa = st.number_input(
-            "Massa benda (kg)",
-            min_value=0.01,
-            max_value=100.0,
+            "Massa (kg)",
+            min_value=0.1,
             value=1.0,
             step=0.1
         )
 
-    with b:
+    with c2:
         kalor_jenis = st.number_input(
             "Kalor jenis (J/kg°C)",
-            min_value=1.0,
-            max_value=10000.0,
+            min_value=100.0,
             value=4200.0,
             step=100.0
         )
 
-    with c:
+    with c3:
         suhu_awal = st.number_input(
             "Suhu awal (°C)",
-            min_value=-100.0,
-            max_value=500.0,
-            value=25.0,
-            step=1.0
+            value=25.0
         )
 
     suhu_akhir = st.slider(
-        "Atur suhu akhir (°C)",
-        -100.0,
-        500.0,
-        75.0,
-        1.0
+        "Suhu akhir (°C)",
+        -50.0,
+        200.0,
+        75.0
     )
 
     delta_t = suhu_akhir - suhu_awal
-    kalor = massa * kalor_jenis * delta_t
 
-    st.markdown("---")
+    Q = massa * kalor_jenis * delta_t
 
-    x, y = st.columns(2)
+    st.markdown("### 📊 Hasil Simulasi")
 
-    with x:
-        st.markdown("""
-        <div class="sim-box">
-            <h3>📐 Persamaan</h3>
-            <div class="formula">
-            Q = m × c × ΔT
-            </div>
-            <p>
-            Q = kalor (J)<br>
-            m = massa (kg)<br>
-            c = kalor jenis (J/kg°C)<br>
-            ΔT = perubahan suhu (°C)
-            </p>
-        </div>
-        """, unsafe_allow_html=True)
+    r1, r2 = st.columns(2)
 
-    with y:
+    r1.metric(
+        "Perubahan Suhu",
+        f"{delta_t:.2f} °C"
+    )
 
-        if kalor > 0:
-            jenis = "Kalor diserap oleh benda 🔥"
-        elif kalor < 0:
-            jenis = "Kalor dilepas oleh benda ❄️"
-        else:
-            jenis = "Tidak terjadi perpindahan kalor"
+    r2.metric(
+        "Kalor",
+        f"{Q:,.2f} J"
+    )
 
-        st.markdown(f"""
-        <div class="sim-box">
-            <h3>📊 Hasil Simulasi</h3>
-            <div class="big-result">{kalor:,.2f} J</div>
-            <p>{jenis}</p>
-            <p>ΔT = {delta_t:.2f} °C</p>
-        </div>
-        """, unsafe_allow_html=True)
+    st.markdown("### 📋 Tabel Hasil")
+
+    tabel = pd.DataFrame({
+        "Besaran": [
+            "Massa",
+            "Kalor jenis",
+            "Suhu awal",
+            "Suhu akhir",
+            "Perubahan suhu",
+            "Kalor"
+        ],
+        "Nilai": [
+            f"{massa:.2f} kg",
+            f"{kalor_jenis:.2f} J/kg°C",
+            f"{suhu_awal:.2f} °C",
+            f"{suhu_akhir:.2f} °C",
+            f"{delta_t:.2f} °C",
+            f"{Q:.2f} J"
+        ]
+    })
+
+    st.dataframe(
+        tabel,
+        use_container_width=True,
+        hide_index=True
+    )
+
+    st.markdown("""
+    <div class="lkpd">
+
+    <div class="lkpd-title">❓ Pertanyaan Analisis</div>
+
+    </div>
+    """, unsafe_allow_html=True)
+
+    q1 = st.text_area(
+        "1. Apa yang terjadi pada kalor jika perubahan suhu diperbesar?",
+        key="kalor_q1"
+    )
+
+    q2 = st.text_area(
+        "2. Bagaimana pengaruh massa benda terhadap kalor?",
+        key="kalor_q2"
+    )
+
+    q3 = st.text_area(
+        "3. Bagaimana pengaruh kalor jenis terhadap kalor?",
+        key="kalor_q3"
+    )
+
+    q4 = st.text_area(
+        "4. Berdasarkan simulasi, apa hubungan Q, m, c, dan ΔT?",
+        key="kalor_q4"
+    )
+
+    st.markdown("### 📝 Kesimpulan")
+
+    kesimpulan = st.text_area(
+        "Tuliskan kesimpulan percobaan:",
+        height=150,
+        key="kalor_kesimpulan"
+    )
+
+    if st.button(
+        "💾 Simpan Jawaban LKPD",
+        key="simpan_kalor"
+    ):
+        st.success("Jawaban LKPD telah dicatat.")
 
 
 # =========================================================
-# ASAS BLACK
+# LKPD ASAS BLACK
 # =========================================================
 
-elif st.session_state.page == "Asas Black":
+elif st.session_state.halaman == "Black":
 
     st.markdown("""
     <div class="hero">
-        <div class="hero-small">⚖️ SIMULASI 03</div>
-        <h1>Asas Black</h1>
+        <h1>⚖️ LKPD DIGITAL — ASAS BLACK</h1>
         <p>
-        Simulasikan pencampuran dua benda dengan suhu
-        berbeda hingga mencapai suhu kesetimbangan.
+        Simulasi pencampuran benda panas dan benda dingin.
         </p>
     </div>
     """, unsafe_allow_html=True)
 
+    st.markdown("""
+    <div class="lkpd">
+
+    <div class="lkpd-title">🎯 Tujuan Pembelajaran</div>
+
+    <div class="objective">
+    Peserta didik mampu menjelaskan prinsip Asas Black
+    dan menentukan suhu kesetimbangan antara dua benda
+    yang memiliki suhu berbeda.
+    </div>
+
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="lkpd">
+
+    <div class="lkpd-title">📋 Langkah Percobaan</div>
+
+    <ol>
+    <li>Tentukan massa benda panas.</li>
+    <li>Tentukan suhu benda panas.</li>
+    <li>Tentukan massa benda dingin.</li>
+    <li>Tentukan suhu benda dingin.</li>
+    <li>Amati suhu kesetimbangan.</li>
+    <li>Bandingkan kalor yang dilepas dan diterima.</li>
+    </ol>
+
+    </div>
+    """, unsafe_allow_html=True)
+
     st.markdown(
-        '<div class="section-title">🎛️ Parameter Benda</div>',
+        '<div class="section-title">🧪 Simulasi Asas Black</div>',
         unsafe_allow_html=True
     )
 
@@ -578,144 +673,199 @@ elif st.session_state.page == "Asas Black":
 
         st.markdown("### 🔥 Benda Panas")
 
-        m_panas = st.number_input(
+        m1 = st.number_input(
             "Massa benda panas (kg)",
-            min_value=0.01,
+            min_value=0.1,
             value=1.0,
             step=0.1,
-            key="mp"
+            key="m1"
         )
 
-        c_panas = st.number_input(
-            "Kalor jenis benda panas (J/kg°C)",
-            min_value=1.0,
-            value=4000.0,
+        c1 = st.number_input(
+            "Kalor jenis benda panas",
+            min_value=100.0,
+            value=4200.0,
             step=100.0,
-            key="cp"
+            key="c1"
         )
 
-        T_panas = st.number_input(
-            "Suhu benda panas (°C)",
-            min_value=-100.0,
+        T1 = st.number_input(
+            "Suhu awal benda panas (°C)",
             value=80.0,
-            step=1.0,
-            key="tp"
+            key="T1"
         )
 
     with col2:
 
         st.markdown("### ❄️ Benda Dingin")
 
-        m_dingin = st.number_input(
+        m2 = st.number_input(
             "Massa benda dingin (kg)",
-            min_value=0.01,
+            min_value=0.1,
             value=1.0,
             step=0.1,
-            key="md"
+            key="m2"
         )
 
-        c_dingin = st.number_input(
-            "Kalor jenis benda dingin (J/kg°C)",
-            min_value=1.0,
+        c2 = st.number_input(
+            "Kalor jenis benda dingin",
+            min_value=100.0,
             value=4200.0,
             step=100.0,
-            key="cd"
+            key="c2"
         )
 
-        T_dingin = st.number_input(
-            "Suhu benda dingin (°C)",
-            min_value=-100.0,
+        T2 = st.number_input(
+            "Suhu awal benda dingin (°C)",
             value=20.0,
-            step=1.0,
-            key="td"
+            key="T2"
         )
 
-    # Suhu keseimbangan
-    penyebut = (m_panas * c_panas) + (m_dingin * c_dingin)
+    penyebut = (m1 * c1) + (m2 * c2)
 
-    if penyebut != 0:
-        T_eq = (
-            (m_panas * c_panas * T_panas)
-            +
-            (m_dingin * c_dingin * T_dingin)
-        ) / penyebut
-    else:
-        T_eq = 0
+    Te = (
+        (m1 * c1 * T1) +
+        (m2 * c2 * T2)
+    ) / penyebut
 
-    Q_panas = m_panas * c_panas * (T_panas - T_eq)
-    Q_dingin = m_dingin * c_dingin * (T_eq - T_dingin)
+    Q_lepas = m1 * c1 * (T1 - Te)
+    Q_terima = m2 * c2 * (Te - T2)
 
-    st.markdown("---")
+    st.markdown("### 📊 Hasil Simulasi")
 
-    st.markdown("""
-    <div class="result-box">
-        <h3>⚖️ Suhu Kesetimbangan</h3>
-    """, unsafe_allow_html=True)
+    a, b, c = st.columns(3)
 
-    st.markdown(
-        f'<div class="big-result">{T_eq:.2f} °C</div>',
-        unsafe_allow_html=True
+    a.metric(
+        "Suhu Kesetimbangan",
+        f"{Te:.2f} °C"
     )
 
-    st.markdown(
-        f"""
-        <p>
-        Kalor yang dilepas benda panas:
-        <b>{Q_panas:,.2f} J</b>
-        </p>
-
-        <p>
-        Kalor yang diterima benda dingin:
-        <b>{Q_dingin:,.2f} J</b>
-        </p>
-
-        <p>
-        Sesuai Asas Black, secara ideal kalor yang dilepas
-        sama dengan kalor yang diterima.
-        </p>
-        """,
-        unsafe_allow_html=True
+    b.metric(
+        "Kalor Dilepas",
+        f"{Q_lepas:,.2f} J"
     )
 
-    st.markdown("</div>", unsafe_allow_html=True)
+    c.metric(
+        "Kalor Diterima",
+        f"{Q_terima:,.2f} J"
+    )
 
-    st.markdown("### 📖 Persamaan Asas Black")
+    st.markdown("### 📋 Tabel Hasil")
+
+    data_black = pd.DataFrame({
+        "Besaran": [
+            "Suhu benda panas",
+            "Suhu benda dingin",
+            "Suhu kesetimbangan",
+            "Kalor dilepas",
+            "Kalor diterima"
+        ],
+        "Hasil": [
+            f"{T1:.2f} °C",
+            f"{T2:.2f} °C",
+            f"{Te:.2f} °C",
+            f"{Q_lepas:.2f} J",
+            f"{Q_terima:.2f} J"
+        ]
+    })
+
+    st.dataframe(
+        data_black,
+        use_container_width=True,
+        hide_index=True
+    )
 
     st.markdown("""
-    <div class="formula">
-    Q lepas = Q terima
-    </div>
+    <div class="lkpd">
 
-    <div class="formula">
-    m₁ c₁ (T₁ - Tₑ) = m₂ c₂ (Tₑ - T₂)
+    <div class="lkpd-title">❓ Pertanyaan Analisis</div>
+
     </div>
     """, unsafe_allow_html=True)
+
+    q1 = st.text_area(
+        "1. Mengapa benda panas mengalami penurunan suhu?",
+        key="black_q1"
+    )
+
+    q2 = st.text_area(
+        "2. Mengapa benda dingin mengalami kenaikan suhu?",
+        key="black_q2"
+    )
+
+    q3 = st.text_area(
+        "3. Apa yang terjadi pada suhu kedua benda ketika mencapai kesetimbangan?",
+        key="black_q3"
+    )
+
+    q4 = st.text_area(
+        "4. Bagaimana hubungan kalor yang dilepas dengan kalor yang diterima?",
+        key="black_q4"
+    )
+
+    st.markdown("### 📝 Kesimpulan")
+
+    kesimpulan = st.text_area(
+        "Tuliskan kesimpulan percobaan:",
+        height=150,
+        key="black_kesimpulan"
+    )
+
+    if st.button(
+        "💾 Simpan Jawaban LKPD",
+        key="simpan_black"
+    ):
+        st.success("Jawaban LKPD telah dicatat.")
 
 
 # =========================================================
-# PERUBAHAN WUJUD
+# LKPD PERUBAHAN WUJUD
 # =========================================================
 
-elif st.session_state.page == "Perubahan Wujud":
+elif st.session_state.halaman == "Wujud":
 
     st.markdown("""
     <div class="hero">
-        <div class="hero-small">💧 SIMULASI 04</div>
-        <h1>Perubahan Wujud Zat</h1>
+        <h1>💧 LKPD DIGITAL — PERUBAHAN WUJUD</h1>
         <p>
-        Amati hubungan suhu dengan energi kalor
-        pada proses perubahan wujud.
+        Mengamati perubahan wujud zat akibat
+        pemberian dan pelepasan kalor.
         </p>
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown(
-        '<div class="section-title">🧊 Pilih Proses Perubahan Wujud</div>',
-        unsafe_allow_html=True
-    )
+    st.markdown("""
+    <div class="lkpd">
+
+    <div class="lkpd-title">🎯 Tujuan Pembelajaran</div>
+
+    <div class="objective">
+    Peserta didik mampu mengidentifikasi berbagai
+    perubahan wujud zat serta menjelaskan hubungan
+    antara kalor dan perubahan wujud.
+    </div>
+
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="lkpd">
+
+    <div class="lkpd-title">📋 Langkah Percobaan</div>
+
+    <ol>
+    <li>Pilih salah satu proses perubahan wujud.</li>
+    <li>Amati perubahan keadaan zat.</li>
+    <li>Amati apakah zat menerima atau melepaskan kalor.</li>
+    <li>Catat hasil pengamatan.</li>
+    <li>Jawab pertanyaan analisis.</li>
+    </ol>
+
+    </div>
+    """, unsafe_allow_html=True)
 
     proses = st.selectbox(
-        "Pilih proses:",
+        "Pilih perubahan wujud:",
         [
             "Mencair",
             "Membeku",
@@ -726,97 +876,131 @@ elif st.session_state.page == "Perubahan Wujud":
         ]
     )
 
-    data_proses = {
+    info = {
         "Mencair": (
+            "🧊 → 💧",
             "Padat → Cair",
-            "Es berubah menjadi air.",
-            "🧊 → 💧"
+            "Menerima kalor",
+            "Contoh: es mencair menjadi air."
         ),
         "Membeku": (
+            "💧 → 🧊",
             "Cair → Padat",
-            "Air berubah menjadi es.",
-            "💧 → 🧊"
+            "Melepaskan kalor",
+            "Contoh: air membeku menjadi es."
         ),
         "Menguap": (
+            "💧 → ☁️",
             "Cair → Gas",
-            "Air berubah menjadi uap.",
-            "💧 → ☁️"
+            "Menerima kalor",
+            "Contoh: air berubah menjadi uap."
         ),
         "Mengembun": (
+            "☁️ → 💧",
             "Gas → Cair",
-            "Uap air berubah menjadi air.",
-            "☁️ → 💧"
+            "Melepaskan kalor",
+            "Contoh: uap air menjadi titik air."
         ),
         "Menyublim": (
+            "🧊 → ☁️",
             "Padat → Gas",
-            "Zat padat berubah langsung menjadi gas.",
-            "🧊 → ☁️"
+            "Menerima kalor",
+            "Contoh: kapur barus menyublim."
         ),
         "Mengkristal": (
+            "☁️ → 🧊",
             "Gas → Padat",
-            "Gas berubah langsung menjadi zat padat.",
-            "☁️ → 🧊"
+            "Melepaskan kalor",
+            "Contoh: terbentuknya kristal dari gas."
         )
     }
 
-    bentuk, penjelasan, ikon = data_proses[proses]
+    ikon, perubahan, kalor, contoh = info[proses]
 
     st.markdown(f"""
-    <div class="sim-box">
-        <div style="font-size:60px;text-align:center;">
-        {ikon}
-        </div>
+    <div class="card" style="text-align:center;">
 
-        <h2 style="text-align:center;color:#12365f;">
-        {proses}
-        </h2>
+    <div style="font-size:65px;">
+    {ikon}
+    </div>
 
-        <h3 style="text-align:center;">
-        {bentuk}
-        </h3>
+    <h2>{proses}</h2>
 
-        <p style="text-align:center;">
-        {penjelasan}
-        </p>
+    <h3>{perubahan}</h3>
+
+    <p><b>{kalor}</b></p>
+
+    <p>{contoh}</p>
+
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown("---")
+    st.markdown("### 📊 Simulasi Energi Kalor")
 
-    st.markdown("### 🔥 Simulasi Energi")
-
-    massa_zat = st.number_input(
+    massa = st.number_input(
         "Massa zat (kg)",
-        min_value=0.01,
+        min_value=0.1,
         value=1.0,
-        step=0.1
+        step=0.1,
+        key="massa_wujud"
     )
 
     kalor_laten = st.number_input(
         "Kalor laten (J/kg)",
-        min_value=1.0,
+        min_value=1000.0,
         value=334000.0,
-        step=1000.0
+        step=1000.0,
+        key="laten"
     )
 
-    energi = massa_zat * kalor_laten
+    Q = massa * kalor_laten
 
     st.metric(
-        "Energi perubahan wujud",
-        f"{energi:,.2f} J"
+        "Kalor perubahan wujud",
+        f"{Q:,.2f} J"
     )
 
     st.markdown("""
-    <div class="formula">
-    Q = m × L
+    <div class="lkpd">
+
+    <div class="lkpd-title">❓ Pertanyaan Analisis</div>
+
     </div>
     """, unsafe_allow_html=True)
 
-    st.info(
-        "Pada perubahan wujud, kalor digunakan untuk mengubah "
-        "keadaan zat. Suhu zat dapat tetap selama proses "
-        "perubahan wujud berlangsung."
+    q1 = st.text_area(
+        "1. Apa yang dimaksud dengan perubahan wujud zat?",
+        key="wujud_q1"
     )
+
+    q2 = st.text_area(
+        "2. Perubahan wujud apa saja yang membutuhkan kalor?",
+        key="wujud_q2"
+    )
+
+    q3 = st.text_area(
+        "3. Perubahan wujud apa saja yang melepaskan kalor?",
+        key="wujud_q3"
+    )
+
+    q4 = st.text_area(
+        "4. Apakah suhu selalu berubah ketika zat menerima kalor?",
+        key="wujud_q4"
+    )
+
+    st.markdown("### 📝 Kesimpulan")
+
+    kesimpulan = st.text_area(
+        "Tuliskan kesimpulan percobaan:",
+        height=150,
+        key="wujud_kesimpulan"
+    )
+
+    if st.button(
+        "💾 Simpan Jawaban LKPD",
+        key="simpan_wujud"
+    ):
+        st.success("Jawaban LKPD telah dicatat.")
 
 
 # =========================================================
@@ -825,8 +1009,8 @@ elif st.session_state.page == "Perubahan Wujud":
 
 st.markdown("""
 <div class="footer">
-    <b>Virtual Lab Suhu dan Kalor</b><br>
-    Media Pembelajaran Praktikum Fisika Berbasis Web<br><br>
-    Kelompok 8 • Fisika SMA
+<b>VIRTUAL LAB SUHU DAN KALOR</b><br>
+Media Pembelajaran Praktikum Fisika Berbasis Web<br>
+Kelompok 8 • Fisika SMA
 </div>
 """, unsafe_allow_html=True)
